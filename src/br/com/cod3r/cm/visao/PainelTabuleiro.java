@@ -15,7 +15,16 @@ public class PainelTabuleiro extends JPanel {
         tabuleiro.paraCadaCampo(c -> add(new BotaoCampo(c)));
 
         tabuleiro.registrarObservadores(e -> {
-            //  TODO mostrar resultado pro usuário
+//          o invokeLater() é tipo um "Thread.sleep()" o qual só vai executar após todos os eventos
+//          que estão rodando terminarem de processar
+            SwingUtilities.invokeLater(() -> {
+                if(e.isGanhou()) {
+                    JOptionPane.showMessageDialog(this, "VOCÊ GANHOU!!! :D");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Você perdeu... D:");
+                }
+                tabuleiro.reiniciar();
+            });
         });
     }
 }
